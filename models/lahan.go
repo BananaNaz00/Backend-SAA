@@ -127,6 +127,38 @@ func SimpanLahan(in InputLahan) (Response, error) {
 	return res, nil
 }
 
+func UpdateLahan(Id int, in InputLahan) (Response, error) {
+	var res Response
+
+	con := db.CreateCon()
+
+	sqlStatement := "UPDATE lahan SET idAdmin=?, idInvestor=?, idPenanggungJawab=?, idStatusLahan=?, namaLahan=?, koordinat=?, alamat=?, areaPolygon=?, dokumenSertifikat=?, luasLahan=?, nilaiLahan=?, updateBy=?, deskripsi=?, updateAt=NOW() WHERE idLahan=?"
+	stmt, err := con.Prepare(sqlStatement)
+	if err != nil {
+		return res, err
+	}
+	defer stmt.Close()
+
+	result, err := stmt.Exec(in.IdAdmin, in.IdInvestor, in.IdPenanggungJawab, in.IdStatusLahan, in.NamaLahan, in.Koordinat, in.Alamat, in.AreaPolygon, in.DokumenSertifikat, in.LuasLahan, in.NilaiLahan, in.UpdateBy, in.Deskripsi, Id)
+
+	if err != nil {
+		return res, err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return res, err
+	}
+
+	res.Status = http.StatusOK
+	res.Message = "success"
+	res.Data = map[string]int64{
+		"rows": rowsAffected,
+	}
+
+	return res, nil
+}
+
 func DeleteLahan(id int) (Response, error) {
 	var res Response
 

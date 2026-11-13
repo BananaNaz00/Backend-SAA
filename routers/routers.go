@@ -110,6 +110,7 @@ func Init() *echo.Echo {
 	e.GET("/lahan", controllers.DataLahan)
 	e.POST("/lahan", controllers.SimpanLahan)
 	e.GET("/lahan/:id", controllers.GetLahanById)
+	e.PUT("/lahan/:id", controllers.UpdateLahan)
 	e.DELETE("/lahan/:id", controllers.DeleteLahan)
 
 	//lahan status log
