@@ -26,8 +26,8 @@ type Lahan struct {
 }
 
 type komoditasItem struct {
-	Komoditas           string  `json:"Komoditas""`
-	PersentaseKomoditas float64 `json:"PersentaseKomoditas""`
+	Komoditas           string  `json:"Komoditas"`
+	PersentaseKomoditas float64 `json:"PersentaseKomoditas"`
 }
 
 type InputLahan struct {
@@ -75,6 +75,7 @@ func DataLahan() (Response, error) {
 	var res Response
 
 	con := db.CreateCon()
+	defer con.Close()
 
 	sqlStatment := "SELECT idLahan, idAdmin, idInvestor, idPenanggungJawab, idStatusLahan, namaLahan, koordinat, alamat, areaPolygon, dokumenSertifikat, luasLahan, nilaiLahan, createBy, updateBy, deskripsi FROM lahan WHERE deleteAt IS NULL"
 
@@ -109,6 +110,7 @@ func GetLahanById(id int) (Lahan, error) {
 	var res Response
 	var obj Lahan
 	con := db.CreateCon()
+	defer con.Close()
 
 	sqlStatement := "SELECT idLahan, idAdmin, idInvestor, idPenanggungJawab, idStatusLahan, namaLahan, koordinat, alamat, areaPolygon, dokumenSertifikat, luasLahan, nilaiLahan, createBy, updateBy, deskripsi FROM lahan WHERE idLahan=?"
 
@@ -132,7 +134,7 @@ func GetLahanById(id int) (Lahan, error) {
 func SimpanLahan(in InputLahan) (Response, error) {
 	var res Response
 	con := db.CreateCon()
-
+	defer con.Close()
 	sqlStatement := `INSERT INTO lahan (idAdmin, idInvestor, idPenanggungJawab, idStatusLahan, namaLahan, koordinat, alamat, areaPolygon, dokumenSertifikat, luasLahan, nilaiLahan, createBy, deskripsi, createAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`
 
 	stmt, err := con.Prepare(sqlStatement)
@@ -168,6 +170,7 @@ func UpdateLahan(Id int, in InputLahan) (Response, error) {
 	var res Response
 
 	con := db.CreateCon()
+	defer con.Close()
 
 	sqlStatement := "UPDATE lahan SET idAdmin=?, idInvestor=?, idPenanggungJawab=?, idStatusLahan=?, namaLahan=?, koordinat=?, alamat=?, areaPolygon=?, dokumenSertifikat=?, luasLahan=?, nilaiLahan=?, updateBy=?, deskripsi=?, updateAt=NOW() WHERE idLahan=?"
 	stmt, err := con.Prepare(sqlStatement)
@@ -200,6 +203,7 @@ func DeleteLahan(id int) (Response, error) {
 	var res Response
 
 	con := db.CreateCon()
+	defer con.Close()
 
 	sqlStatement := "UPDATE lahan SET deleteAt=NOW() WHERE idLahan=? AND deleteAt IS NULL"
 	stmt, err := con.Prepare(sqlStatement)
