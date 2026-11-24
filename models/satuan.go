@@ -17,7 +17,7 @@ func Asatuan() (Response, error) {
 
 	con := db.CreateCon()
 
-	sqlStatement := "SELECT idSatuan, namaSatuan FROM Satuan"
+	sqlStatement := "SELECT idSatuan, namaSatuan FROM satuan"
 
 	rows, err := con.Query(sqlStatement)
 	if err != nil {

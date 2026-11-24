@@ -30,7 +30,7 @@ func DataPenerimaanBarang() (Response, error) {
 	var res Response
 
 	con := db.CreateCon()
-	sqlStatement := "SELECT idPenerimaan, idInventory, tanggalPenerimaan, namaTokoVendor, kuantitas, catatan FROM penerimaanBarang"
+	sqlStatement := "SELECT idPenerimaan, idInventory, tanggalPenerimaan, namaTokoVendor, kuantitas, catatan FROM penerimaanbarang"
 
 	rows, err := con.Query(sqlStatement)
 	if err != nil {
@@ -65,7 +65,7 @@ func SimpanPenerimaanBarang(in InputPenerimaanBarang) (Response, error) {
 	}
 	defer tx.Rollback()
 
-	sqlStatement := "INSERT INTO penerimaanBarang (idInventory, tanggalPenerimaan, namaTokoVendor, kuantitas, catatan, createAt) VALUES (?, ?, ?, ?, ?, NOW())"
+	sqlStatement := "INSERT INTO penerimaanbarang (idInventory, tanggalPenerimaan, namaTokoVendor, kuantitas, catatan, createAt) VALUES (?, ?, ?, ?, ?, NOW())"
 	stmt, err := tx.Prepare(sqlStatement)
 	if err != nil {
 		return res, err

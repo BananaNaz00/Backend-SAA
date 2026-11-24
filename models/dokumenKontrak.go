@@ -33,7 +33,7 @@ func DataDokumenKontrak() (Response, error) {
 
 	con := db.CreateCon()
 
-	sqlStatment := "SELECT idDokumenKontrak, idInvest, nomorKontrak, namaDokumen, fileDokumen, tanggalTandaTangan, tanggalMulai, tanggalSelesai FROM dokumenKontrak WHERE deleteAt IS NULL"
+	sqlStatment := "SELECT idDokumenKontrak, idInvest, nomorKontrak, namaDokumen, fileDokumen, tanggalTandaTangan, tanggalMulai, tanggalSelesai FROM dokumendontrak WHERE deleteAt IS NULL"
 
 	rows, err := con.Query(sqlStatment)
 	if err != nil {

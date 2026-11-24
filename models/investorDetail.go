@@ -31,7 +31,7 @@ func DataInvestorDetail() (Response, error) {
 
 	con := db.CreateCon()
 
-	sqlStatment := "SELECT IdInvestor, idUser, namaBank, nomorRekening, namaPemilikRekening, identitasLegalPDF, npwp FROM investorDetail"
+	sqlStatment := "SELECT IdInvestor, idUser, namaBank, nomorRekening, namaPemilikRekening, identitasLegalPDF, npwp FROM investordetail"
 
 	rows, err := con.Query(sqlStatment)
 	if err != nil {
